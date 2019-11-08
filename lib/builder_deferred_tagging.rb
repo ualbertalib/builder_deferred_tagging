@@ -1,5 +1,6 @@
 require "builder_deferred_tagging/version"
-require 'builder/xmlmarkup'
+require "builder/xmlmarkup"
+require "request_store"
 
 module BuilderDeferredTagging
   Builder::XmlMarkup.class_eval do
@@ -15,11 +16,11 @@ module BuilderDeferredTagging
 
     private
     def local_deferred_attributes
-      Thread.current[:deferred_attributes] ||= {}
+      RequestStore.store[:deferred_attributes] ||= {}
     end
 
     def clear_local_deferred_attributes
-      Thread.current[:deferred_attributes] = {}
+      RequestStore.store[:deferred_attributes] = {}
     end
   end
 end
